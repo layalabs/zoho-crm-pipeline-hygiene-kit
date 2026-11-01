@@ -1,0 +1,73 @@
+[
+  {
+    "id": "all-six-reasons",
+    "audit_date": "2026-11-01",
+    "deal": {
+      "stage": "Negotiation",
+      "closing_date": "2026-10-20",
+      "last_activity_at": "2026-10-01",
+      "has_open_activity": false,
+      "next_step": "  ",
+      "owner_name": "",
+      "owner_email": "",
+      "amount": null
+    },
+    "expected_reasons": [
+      "overdue_closing_date",
+      "no_open_activity",
+      "stale_last_activity",
+      "missing_next_step",
+      "missing_owner",
+      "missing_amount"
+    ],
+    "expected_ignored": false
+  },
+  {
+    "id": "healthy-deal",
+    "audit_date": "2026-11-01",
+    "deal": {
+      "stage": "Proposal",
+      "closing_date": "2026-11-01",
+      "last_activity_at": "2026-10-18",
+      "has_open_activity": true,
+      "next_step": "Send final proposal",
+      "owner_name": "Synthetic Owner",
+      "owner_email": "owner@example.invalid",
+      "amount": 1000
+    },
+    "expected_reasons": [],
+    "expected_ignored": false
+  },
+  {
+    "id": "closed-deal",
+    "audit_date": "2026-11-01",
+    "deal": {
+      "stage": "Closed Won",
+      "closing_date": "2026-10-01",
+      "last_activity_at": null,
+      "has_open_activity": false,
+      "next_step": "",
+      "owner_name": "",
+      "owner_email": "",
+      "amount": null
+    },
+    "expected_reasons": [],
+    "expected_ignored": true
+  },
+  {
+    "id": "zero-amount",
+    "audit_date": "2026-11-01",
+    "deal": {
+      "stage": "Qualification",
+      "closing_date": "2026-11-30",
+      "last_activity_at": "2026-10-25",
+      "has_open_activity": true,
+      "next_step": "Confirm scope",
+      "owner_name": "Synthetic Owner",
+      "owner_email": "owner@example.invalid",
+      "amount": 0
+    },
+    "expected_reasons": [],
+    "expected_ignored": false
+  }
+]

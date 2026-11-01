@@ -1,0 +1,5 @@
+interface:
+  display_name: "Zoho Pipeline Hygiene"
+  short_description: "Audit neglected Zoho CRM Deals with read-only MCP tools."
+  default_prompt: "Audit up to 25 open Zoho CRM Deals and show evidence for each pipeline hygiene finding."
+
