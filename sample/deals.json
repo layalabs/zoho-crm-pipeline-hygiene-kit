@@ -1,0 +1,38 @@
+[
+  {
+    "id": "5725767000001234001",
+    "name": "Community website renewal",
+    "owner": { "name": "Asha", "email": "asha@example.com" },
+    "stage": "Negotiation",
+    "isClosed": false,
+    "closingDate": "2026-10-28",
+    "lastActivityAt": "2026-10-10T09:30:00Z",
+    "hasOpenActivity": false,
+    "nextStep": "",
+    "amount": 75000
+  },
+  {
+    "id": "5725767000001234002",
+    "name": "Training package",
+    "owner": { "name": "Ravi", "email": "ravi@example.com" },
+    "stage": "Proposal / Price Quote",
+    "isClosed": false,
+    "closingDate": "2026-11-15",
+    "lastActivityAt": "2026-10-30T12:00:00Z",
+    "hasOpenActivity": true,
+    "nextStep": "Client review on 5 November",
+    "amount": 120000
+  },
+  {
+    "id": "5725767000001234003",
+    "name": "Closed sample deal",
+    "owner": { "name": "Asha", "email": "asha@example.com" },
+    "stage": "Closed Won",
+    "isClosed": true,
+    "closingDate": "2026-10-01",
+    "lastActivityAt": "2026-09-01T12:00:00Z",
+    "hasOpenActivity": false,
+    "nextStep": "",
+    "amount": null
+  }
+]

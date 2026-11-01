@@ -1,0 +1,13 @@
+{
+  "name": "zoho-crm-pipeline-hygiene-kit",
+  "version": "0.1.0",
+  "description": "Daily pipeline hygiene digest and setup kit for Zoho CRM",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "MIT"
+}
