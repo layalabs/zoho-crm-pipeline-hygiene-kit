@@ -42,7 +42,7 @@ export function generateDeluge(options = {}) {
 // Generated file. Run npm run generate to update it.
 // Test this beta in a Zoho CRM sandbox before production use.
 
-void scheduled.pipeline_hygiene_digest()
+void schedule.pipeline_hygiene_digest()
 {
 \tstaleDays = ${staleDays};
 \tmaxDeals = ${maxDeals};
@@ -154,14 +154,16 @@ void scheduled.pipeline_hygiene_digest()
 \t\t\t\t\t{
 \t\t\t\t\t\treasonText = reasonText + ", ";
 \t\t\t\t\t}
-\t\t\t\t\treasonText = reasonText + reasonLabels.get(reason);
+\t\t\t\t\tsafeReasonLabel = reasonLabels.get(reason).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+\t\t\t\t\treasonText = reasonText + safeReasonLabel;
 \t\t\t\t}
 \t\t\t\tsafeName = dealName.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 \t\t\t\tsafeStage = stage.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+\t\t\t\tsafeOwnerName = ownerName.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 \t\t\t\trow = "<tr><td>" + safeName + "</td><td>" + safeStage + "</td><td>" + closingDateText + "</td><td>" + reasonText + "</td></tr>";
 \t\t\t\texistingRows = ifnull(ownerRows.get(ownerEmail),"");
 \t\t\t\townerRows.put(ownerEmail,existingRows + row);
-\t\t\t\townerNames.put(ownerEmail,ownerName);
+\t\t\t\townerNames.put(ownerEmail,safeOwnerName);
 \t\t\t\tif(createFollowUpTasks)
 \t\t\t\t{
 \t\t\t\t\ttaskData = Map();

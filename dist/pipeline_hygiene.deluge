@@ -2,7 +2,7 @@
 // Generated file. Run npm run generate to update it.
 // Test this beta in a Zoho CRM sandbox before production use.
 
-void scheduled.pipeline_hygiene_digest()
+void schedule.pipeline_hygiene_digest()
 {
 	staleDays = 14;
 	maxDeals = 25;
@@ -119,14 +119,16 @@ void scheduled.pipeline_hygiene_digest()
 					{
 						reasonText = reasonText + ", ";
 					}
-					reasonText = reasonText + reasonLabels.get(reason);
+					safeReasonLabel = reasonLabels.get(reason).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+					reasonText = reasonText + safeReasonLabel;
 				}
 				safeName = dealName.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 				safeStage = stage.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+				safeOwnerName = ownerName.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 				row = "<tr><td>" + safeName + "</td><td>" + safeStage + "</td><td>" + closingDateText + "</td><td>" + reasonText + "</td></tr>";
 				existingRows = ifnull(ownerRows.get(ownerEmail),"");
 				ownerRows.put(ownerEmail,existingRows + row);
-				ownerNames.put(ownerEmail,ownerName);
+				ownerNames.put(ownerEmail,safeOwnerName);
 				if(createFollowUpTasks)
 				{
 					taskData = Map();

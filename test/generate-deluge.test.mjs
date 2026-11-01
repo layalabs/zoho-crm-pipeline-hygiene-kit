@@ -7,6 +7,7 @@ import { generateDeluge } from "../src/generate-deluge.mjs";
 test("generateDeluge uses safe first-release defaults", () => {
   const source = generateDeluge();
 
+  assert.match(source, /void schedule\.pipeline_hygiene_digest\(\)/);
   assert.match(source, /createFollowUpTasks = false;/);
   assert.match(source, /maxDeals = 25;/);
   assert.match(source, /staleDays = 14;/);
@@ -31,6 +32,15 @@ test("generateDeluge escapes configured reason labels", () => {
 
   assert.match(source, /Next step says \\"later\\"/);
   assert.doesNotMatch(source, /Next step says "later"/);
+});
+
+test("generateDeluge escapes all CRM and configured data before HTML output", () => {
+  const source = generateDeluge();
+
+  assert.match(source, /safeOwnerName = ownerName\.replaceAll\("&","&amp;"\)\.replaceAll\("<","&lt;"\)\.replaceAll\(">","&gt;"\);/);
+  assert.match(source, /safeReasonLabel = reasonLabels\.get\(reason\)\.replaceAll\("&","&amp;"\)\.replaceAll\("<","&lt;"\)\.replaceAll\(">","&gt;"\);/);
+  assert.match(source, /ownerNames\.put\(ownerEmail,safeOwnerName\);/);
+  assert.match(source, /reasonText = reasonText \+ safeReasonLabel;/);
 });
 
 test("generateDeluge is deterministic and matches the committed artifact", async () => {
