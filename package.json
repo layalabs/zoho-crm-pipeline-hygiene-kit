@@ -1,7 +1,7 @@
 {
   "name": "zoho-crm-pipeline-hygiene-kit",
   "version": "0.1.0",
-  "description": "Daily pipeline hygiene digest and setup kit for Zoho CRM",
+  "description": "Zoho CRM pipeline hygiene extension candidate and read-only agent skill",
   "type": "module",
   "engines": {
     "node": ">=20"
@@ -11,8 +11,10 @@
     "generate": "node src/generate-deluge.mjs"
   },
   "files": [
+    "agent-skill",
     "dist",
     "docs",
+    "marketplace",
     "sample",
     "src",
     "views",
