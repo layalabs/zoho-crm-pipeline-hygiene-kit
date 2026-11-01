@@ -10,5 +10,14 @@
     "test": "node --test",
     "generate": "node src/generate-deluge.mjs"
   },
+  "files": [
+    "dist",
+    "docs",
+    "sample",
+    "src",
+    "views",
+    "README.md",
+    "LICENSE"
+  ],
   "license": "MIT"
 }
