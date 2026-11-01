@@ -50,4 +50,3 @@ The first agent version does not create workflows. A later version can use Zoho'
 Local tests can verify the generated files and release assets. They cannot verify Zoho installation or Deluge runtime behavior.
 
 The public submission requires a Zoho Developer account in the US data center. It also requires a sandbox test and owner vendor details.
-

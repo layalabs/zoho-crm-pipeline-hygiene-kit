@@ -67,4 +67,3 @@ Include these columns:
 State that the audit changed no CRM record. Do not create or update records, fields, workflows, functions, schedules, or Tasks.
 
 If the user wants a daily audit, direct them to the Pipeline Hygiene Zoho CRM extension. Explain that an administrator must approve and test the extension.
-
