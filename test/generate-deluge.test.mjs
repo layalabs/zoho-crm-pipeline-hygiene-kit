@@ -21,6 +21,14 @@ test("generateDeluge uses safe first-release defaults", () => {
   assert.match(source, /zoho\.crm\.v8\.getRelatedRecords\("Calls","Deals",dealId,callQuery,1,200\)/);
 });
 
+test("generateDeluge sends no email while the extension is disabled", () => {
+  const source = generateDeluge();
+
+  assert.match(source, /zoho\.crm\.getOrgVariable\("layalabspipelinehygiene__Enabled"\)/);
+  assert.match(source, /if\(extensionEnabled == "true"\)/);
+  assert.ok(source.indexOf('if(extensionEnabled == "true")') < source.indexOf("sendmail"));
+});
+
 test("generateDeluge rejects a record limit above the tested maximum", () => {
   assert.throws(() => generateDeluge({ maxDeals: 201 }), /maxDeals must be between 1 and 200/);
 });

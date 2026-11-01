@@ -44,6 +44,9 @@ export function generateDeluge(options = {}) {
 
 void schedule.pipeline_hygiene_digest()
 {
+\textensionEnabled = ifnull(zoho.crm.getOrgVariable("layalabspipelinehygiene__Enabled"),"false").toString().toLowerCase();
+\tif(extensionEnabled == "true")
+\t{
 \tstaleDays = ${staleDays};
 \tmaxDeals = ${maxDeals};
 \tcreateFollowUpTasks = false;
@@ -186,6 +189,7 @@ void schedule.pipeline_hygiene_digest()
 \t\t\tsubject : "Zoho CRM pipeline hygiene digest"
 \t\t\tmessage : messageBody
 \t\t]
+\t}
 \t}
 }
 `;

@@ -4,6 +4,9 @@
 
 void schedule.pipeline_hygiene_digest()
 {
+	extensionEnabled = ifnull(zoho.crm.getOrgVariable("layalabspipelinehygiene__Enabled"),"false").toString().toLowerCase();
+	if(extensionEnabled == "true")
+	{
 	staleDays = 14;
 	maxDeals = 25;
 	createFollowUpTasks = false;
@@ -151,5 +154,6 @@ void schedule.pipeline_hygiene_digest()
 			subject : "Zoho CRM pipeline hygiene digest"
 			message : messageBody
 		]
+	}
 	}
 }
