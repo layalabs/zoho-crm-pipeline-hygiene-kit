@@ -38,12 +38,12 @@
 **Interfaces:**
 - Produces: A schedule function that exits when the extension is disabled.
 
-- [ ] Add a failing test for the `Enabled` property gate.
-- [ ] Run `npm test` and confirm the new test fails.
-- [ ] Add the property gate to the generator.
-- [ ] Run `npm run generate`.
-- [ ] Run `npm test` and confirm all tests pass.
-- [ ] Commit the task.
+- [x] Add a failing test for the `Enabled` property gate.
+- [x] Run `npm test` and confirm the new test fails.
+- [x] Add the property gate to the generator.
+- [x] Run `npm run generate`.
+- [x] Run `npm test` and confirm all tests pass.
+- [x] Commit the task.
 
 ### Task 2: Marketplace release package
 
@@ -61,11 +61,11 @@
 - Consumes: The generated schedule function from Task 1.
 - Produces: A complete local submission package for Sigma.
 
-- [ ] Add failing tests for required metadata, documents, and image dimensions.
-- [ ] Run `npm test` and confirm the new tests fail.
-- [ ] Add the Marketplace package and deterministic assets.
-- [ ] Run `npm test` and confirm all tests pass.
-- [ ] Commit the task.
+- [x] Add failing tests for required metadata, documents, and image dimensions.
+- [x] Run `npm test` and confirm the new tests fail.
+- [x] Add the Marketplace package and deterministic assets.
+- [x] Run `npm test` and confirm all tests pass.
+- [x] Commit the task.
 
 ### Task 3: Read-only agent skill
 
@@ -79,11 +79,11 @@
 - Consumes: The rule codes and safety boundary from the project design.
 - Produces: A portable read-only instruction package for Zoho MCP clients.
 
-- [ ] Add failing tests for read-only scope, rule coverage, and eval cases.
-- [ ] Run `npm test` and confirm the new tests fail.
-- [ ] Add the agent skill, evals, and installation guide.
-- [ ] Run `npm test` and confirm all tests pass.
-- [ ] Commit the task.
+- [x] Add failing tests for read-only scope, rule coverage, and eval cases.
+- [x] Run `npm test` and confirm the new tests fail.
+- [x] Add the agent skill, evals, and installation guide.
+- [x] Run `npm test` and confirm all tests pass.
+- [x] Commit the task.
 
 ### Task 4: Release verification
 
@@ -96,9 +96,8 @@
 - Consumes: All release files from Tasks 1-3.
 - Produces: A packaged extension candidate with public instructions.
 
-- [ ] Add failing package assertions for all release files.
-- [ ] Run `npm test` and confirm the new assertions fail.
-- [ ] Add release files to the package and update the README.
-- [ ] Run the full test and package checks.
-- [ ] Commit the task.
-
+- [x] Add failing package assertions for all release files.
+- [x] Run `npm test` and confirm the new assertions fail.
+- [x] Add release files to the package and update the README.
+- [x] Run the full test and package checks.
+- [x] Commit the task.
