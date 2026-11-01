@@ -26,6 +26,7 @@ test("npm package contains every installation and removal file", () => {
     "docs/TESTING.md",
     "docs/ADMIN_GUIDE.md",
     "docs/AGENT_INSTALL.md",
+    "docs/END_TO_END_USER_TEST.md",
     "docs/PRIVACY.md",
     "docs/TERMS.md",
     "marketplace/submission.json",

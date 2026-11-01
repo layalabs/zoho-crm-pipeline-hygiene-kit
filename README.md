@@ -27,6 +27,8 @@ The Marketplace package includes:
 
 Start with [the Sigma build guide](marketplace/BUILD_IN_SIGMA.md). Use [the release checklist](marketplace/RELEASE_CHECKLIST.md) before submission.
 
+Use [the end-to-end user test](docs/END_TO_END_USER_TEST.md) to test the builder, administrator, sales-owner, removal, and agent journeys.
+
 The extension candidate is not yet a public Marketplace listing. Zoho must accept the submission before it becomes public.
 
 ## Read-only agent skill

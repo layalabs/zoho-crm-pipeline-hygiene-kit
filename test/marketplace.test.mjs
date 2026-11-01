@@ -25,6 +25,7 @@ test("Marketplace policy and build documents exist", async () => {
     "../docs/PRIVACY.md",
     "../docs/TERMS.md",
     "../docs/ADMIN_GUIDE.md",
+    "../docs/END_TO_END_USER_TEST.md",
     "../marketplace/BUILD_IN_SIGMA.md",
     "../marketplace/RELEASE_CHECKLIST.md"
   ];
