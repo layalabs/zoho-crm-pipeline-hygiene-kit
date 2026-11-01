@@ -1,0 +1,147 @@
+// Zoho CRM Pipeline Hygiene Kit v0.1.0
+// Generated file. Run npm run generate to update it.
+// Test this beta in a Zoho CRM sandbox before production use.
+
+void scheduled.pipeline_hygiene_digest()
+{
+	staleDays = 14;
+	maxDeals = 200;
+	createFollowUpTasks = false;
+	managerEmail = zoho.adminuserid;
+	closedStages = {"Closed Won","Closed Lost","Closed Lost to Competition"};
+	reasonLabels = Map();
+	reasonLabels.put("overdue_closing_date","Closing date is overdue");
+	reasonLabels.put("no_open_activity","No open activity");
+	reasonLabels.put("stale_last_activity","Last activity is stale");
+	reasonLabels.put("missing_next_step","Next step is missing");
+	reasonLabels.put("missing_owner","Owner is missing");
+	reasonLabels.put("missing_amount","Amount is missing");
+	queryMap = Map();
+	queryMap.put("fields","id,Deal_Name,Owner,Stage,Closing_Date,Last_Activity_Time,Next_Step,Amount");
+	deals = zoho.crm.v8.getRecords("Deals",1,maxDeals,queryMap);
+	ownerRows = Map();
+	ownerNames = Map();
+	for each deal in deals
+	{
+		stage = ifnull(deal.get("Stage"),"");
+		if(!closedStages.contains(stage))
+		{
+			dealId = deal.get("id");
+			dealName = ifnull(deal.get("Deal_Name"),"Unnamed deal").toString();
+			reasons = List();
+			closingDateText = ifnull(deal.get("Closing_Date"),"").toString();
+			if(closingDateText != "" && closingDateText.toDate("yyyy-MM-dd") < zoho.currentdate)
+			{
+				reasons.add("overdue_closing_date");
+			}
+			hasOpenActivity = false;
+			tasks = zoho.crm.v8.getRelatedRecords("Tasks","Deals",dealId,1,200,Map());
+			for each task in tasks
+			{
+				taskStatus = ifnull(task.get("Status"),"").toString();
+				if(taskStatus != "Completed" && taskStatus != "Deferred" && taskStatus != "Cancelled")
+				{
+					hasOpenActivity = true;
+				}
+			}
+			if(!hasOpenActivity)
+			{
+				events = zoho.crm.v8.getRelatedRecords("Events","Deals",dealId,1,200,Map());
+				for each event in events
+				{
+					eventStatus = ifnull(event.get("Event_Status"),"").toString();
+					if(eventStatus != "Completed" && eventStatus != "Cancelled")
+					{
+						hasOpenActivity = true;
+					}
+				}
+			}
+			if(!hasOpenActivity)
+			{
+				calls = zoho.crm.v8.getRelatedRecords("Calls","Deals",dealId,1,200,Map());
+				for each call in calls
+				{
+					callStatus = ifnull(call.get("Call_Status"),"").toString();
+					if(callStatus != "Completed" && callStatus != "Cancelled")
+					{
+						hasOpenActivity = true;
+					}
+				}
+			}
+			if(!hasOpenActivity)
+			{
+				reasons.add("no_open_activity");
+			}
+			lastActivityText = ifnull(deal.get("Last_Activity_Time"),"").toString();
+			if(lastActivityText != "")
+			{
+				lastActivityDate = lastActivityText.subString(0,10).toDate("yyyy-MM-dd");
+				if(lastActivityDate < zoho.currentdate.subDay(staleDays))
+				{
+					reasons.add("stale_last_activity");
+				}
+			}
+			nextStep = ifnull(deal.get("Next_Step"),"").toString().trim();
+			if(nextStep == "")
+			{
+				reasons.add("missing_next_step");
+			}
+			owner = deal.get("Owner");
+			ownerName = "";
+			ownerEmail = "";
+			if(owner != null)
+			{
+				ownerName = ifnull(owner.get("name"),"").toString();
+				ownerEmail = ifnull(owner.get("email"),"").toString().toLowerCase();
+			}
+			if(ownerName == "" || ownerEmail == "")
+			{
+				reasons.add("missing_owner");
+				ownerEmail = managerEmail;
+				ownerName = "Sales manager";
+			}
+			if(deal.get("Amount") == null)
+			{
+				reasons.add("missing_amount");
+			}
+			if(reasons.size() > 0)
+			{
+				reasonText = "";
+				for each reason in reasons
+				{
+					if(reasonText != "")
+					{
+						reasonText = reasonText + ", ";
+					}
+					reasonText = reasonText + reasonLabels.get(reason);
+				}
+				safeName = dealName.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+				safeStage = stage.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+				row = "<tr><td>" + safeName + "</td><td>" + safeStage + "</td><td>" + closingDateText + "</td><td>" + reasonText + "</td></tr>";
+				existingRows = ifnull(ownerRows.get(ownerEmail),"");
+				ownerRows.put(ownerEmail,existingRows + row);
+				ownerNames.put(ownerEmail,ownerName);
+				if(createFollowUpTasks)
+				{
+					taskData = Map();
+					taskData.put("Subject","Review pipeline hygiene: " + dealName);
+					taskData.put("Due_Date",zoho.currentdate.addDay(1));
+					taskData.put("$se_module","Deals");
+					taskData.put("What_Id",dealId);
+					zoho.crm.createRecord("Tasks",taskData);
+				}
+			}
+		}
+	}
+	for each recipient in ownerRows.keys()
+	{
+		messageBody = "<h1>Pipeline hygiene digest</h1><p>" + ownerNames.get(recipient) + ", these deals need attention.</p><table><thead><tr><th>Deal</th><th>Stage</th><th>Closing date</th><th>Reasons</th></tr></thead><tbody>" + ownerRows.get(recipient) + "</tbody></table>";
+		sendmail
+		[
+			from : zoho.adminuserid
+			to : recipient
+			subject : "Zoho CRM pipeline hygiene digest"
+			message : messageBody
+		]
+	}
+}
