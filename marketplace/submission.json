@@ -1,0 +1,36 @@
+{
+  "name": "Pipeline Hygiene for Zoho CRM",
+  "namespace": "layalabspipelinehygiene",
+  "category": "Sales",
+  "tagline": "Find neglected deals before the next forecast review.",
+  "description": "Pipeline Hygiene checks up to 25 open deals each day. It finds overdue closing dates, missing activities, stale activity, missing next steps, missing owners, and missing amounts. It emails one evidence-based digest to each deal owner. The extension stays disabled after installation until an administrator completes a sandbox test.",
+  "key_features": [
+    "Checks six pipeline hygiene conditions",
+    "Sends one daily digest to each deal owner",
+    "Stays disabled until an administrator enables it",
+    "Keeps CRM data inside Zoho CRM",
+    "Creates no tasks and changes no Deal fields"
+  ],
+  "pricing": "Free",
+  "globally_available": true,
+  "stores_personal_data": false,
+  "supported_editions": ["Enterprise", "Ultimate"],
+  "privacy_url": "https://github.com/layalabs/zoho-crm-pipeline-hygiene-kit/blob/main/docs/PRIVACY.md",
+  "terms_url": "https://github.com/layalabs/zoho-crm-pipeline-hygiene-kit/blob/main/docs/TERMS.md",
+  "user_education_url": "https://github.com/layalabs/zoho-crm-pipeline-hygiene-kit/blob/main/docs/ADMIN_GUIDE.md",
+  "support_url": "https://github.com/layalabs/zoho-crm-pipeline-hygiene-kit/issues",
+  "custom_property": {
+    "field_name": "Enabled",
+    "api_name": "Enabled",
+    "generated_api_name": "layalabspipelinehygiene__Enabled",
+    "type": "Read-Write",
+    "default_value": "false"
+  },
+  "schedule": {
+    "name": "Daily Pipeline Hygiene Digest",
+    "time": "08:00",
+    "time_zone": "Zoho CRM organization time zone",
+    "function": "Pipeline Hygiene Digest"
+  },
+  "limits": "The first release checks up to 25 deals during each daily run."
+}
