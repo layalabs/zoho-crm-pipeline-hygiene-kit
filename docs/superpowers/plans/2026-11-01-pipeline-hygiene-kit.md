@@ -14,7 +14,7 @@
 
 - Use no runtime or development package dependencies.
 - Keep task creation disabled by default.
-- Process a maximum of 200 deals in the first release.
+- Process 25 deals by default, with a tested maximum setting of 200.
 - Do not include customer data or telemetry.
 - State that live Zoho execution is pending without an authenticated test account.
 - Write technical documentation to ASD-STE100 Simplified Technical English rules.
@@ -111,7 +111,7 @@ Commit message: `feat: add owner digest and command line`
 
 - [ ] **Step 1: Write failing generator tests**
 
-Test safe defaults, the 200-record limit, escaped labels, and deterministic generation.
+Test safe defaults, the 200-record maximum, escaped labels, and deterministic generation.
 
 - [ ] **Step 2: Run the generator test and verify the expected failure**
 
@@ -166,4 +166,3 @@ Expected: PASS, no artifact diff, and all required files in the package list.
 - [ ] **Step 5: Commit the release package**
 
 Commit message: `docs: add beta installation and release guide`
-

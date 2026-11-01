@@ -46,7 +46,7 @@ The default stale limit is 14 days. The default report date comes from the comma
 
 The digest groups deals by owner email. It puts deals without an owner in the `unassigned` group.
 
-The generated function reads up to 200 open deals in the first release. The guide states this limit.
+The generated function reads 25 deals by default. An administrator can increase the limit to 200 after a sandbox test.
 
 ## Approaches
 
@@ -78,7 +78,7 @@ The Deluge function fetches deal records and their related open activities. Each
 
 The default mode reads data and sends digests only. `CREATE_FOLLOW_UP_TASKS` stays false in the generated artifact.
 
-The installation guide tells the administrator to test in a sandbox. It also lists the API-call and 200-record limits.
+The installation guide tells the administrator to test in a sandbox. It also states the external-call and record limits.
 
 The sample data contains no customer information. The project does not collect telemetry.
 
@@ -87,4 +87,3 @@ The sample data contains no customer information. The project does not collect t
 The full local test suite must pass. The generator must reproduce the committed Deluge artifact with no diff.
 
 The package check must list all required files. A live Zoho installation remains an explicit pending check.
-

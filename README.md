@@ -11,7 +11,7 @@ The kit flags these conditions:
 - The owner is missing.
 - The amount is missing.
 
-The generated function reads a maximum of 200 deals. It ignores closed stages and keeps task creation off by default.
+The generated function reads 25 deals by default. It ignores closed stages and keeps task creation off by default.
 
 ## Install the beta
 
@@ -38,7 +38,7 @@ The JavaScript reference engine tests the classification and digest rules. The g
 
 This release has no live Zoho sandbox result. Zoho editions can use different field names, activity statuses, and function limits.
 
-The function reads only the first 200 deals. It does not paginate through larger pipelines.
+The function reads only the first 25 deals by default. You can set the limit to 200, but each related-record request uses an external call.
 
 The function sends email from the CRM administrator address. Your Zoho account must permit the sender and each recipient.
 
@@ -47,7 +47,8 @@ Do not enable task creation until a sandbox test confirms the task fields. See [
 ## Sources
 
 - [Zoho CRM advanced filters](https://help.zoho.com/portal/en/kb/crm/customize-crm-account/advanced-filters/articles/advanced-filters)
-- [Zoho CRM Deluge tasks](https://www.zoho.com/deluge/help/crm/get-records.html)
+- [Zoho CRM V8 get-records task](https://www.zoho.com/deluge/help/crm/get-records-V8.html)
+- [Zoho CRM V8 related-records task](https://www.zoho.com/deluge/help/crm/get-related-records-V8.html)
 - [Zoho CRM public extension publishing](https://help.zoho.com/portal/en/kb/sigma/extensions/articles/publish-your-extension)
 
 ## Licence

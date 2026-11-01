@@ -20,7 +20,7 @@ function delugeString(value) {
 }
 
 function validateOptions(options) {
-  const maxDeals = options.maxDeals ?? 200;
+  const maxDeals = options.maxDeals ?? 25;
   const staleDays = options.staleDays ?? DEFAULT_OPTIONS.staleDays;
   if (!Number.isInteger(maxDeals) || maxDeals < 1 || maxDeals > 200) {
     throw new RangeError("maxDeals must be between 1 and 200");
@@ -53,7 +53,13 @@ void scheduled.pipeline_hygiene_digest()
 \t${labelLines}
 \tqueryMap = Map();
 \tqueryMap.put("fields","id,Deal_Name,Owner,Stage,Closing_Date,Last_Activity_Time,Next_Step,Amount");
-\tdeals = zoho.crm.v8.getRecords("Deals",1,maxDeals,queryMap);
+\tdeals = zoho.crm.v8.getRecords("Deals",queryMap,1,maxDeals);
+\ttaskQuery = Map();
+\ttaskQuery.put("fields","id,Status");
+\teventQuery = Map();
+\teventQuery.put("fields","id,Event_Status");
+\tcallQuery = Map();
+\tcallQuery.put("fields","id,Call_Status");
 \townerRows = Map();
 \townerNames = Map();
 \tfor each deal in deals
@@ -70,7 +76,7 @@ void scheduled.pipeline_hygiene_digest()
 \t\t\t\treasons.add("overdue_closing_date");
 \t\t\t}
 \t\t\thasOpenActivity = false;
-\t\t\ttasks = zoho.crm.v8.getRelatedRecords("Tasks","Deals",dealId,1,200,Map());
+\t\t\ttasks = zoho.crm.v8.getRelatedRecords("Tasks","Deals",dealId,taskQuery,1,200);
 \t\t\tfor each task in tasks
 \t\t\t{
 \t\t\t\ttaskStatus = ifnull(task.get("Status"),"").toString();
@@ -81,7 +87,7 @@ void scheduled.pipeline_hygiene_digest()
 \t\t\t}
 \t\t\tif(!hasOpenActivity)
 \t\t\t{
-\t\t\t\tevents = zoho.crm.v8.getRelatedRecords("Events","Deals",dealId,1,200,Map());
+\t\t\t\tevents = zoho.crm.v8.getRelatedRecords("Events","Deals",dealId,eventQuery,1,200);
 \t\t\t\tfor each event in events
 \t\t\t\t{
 \t\t\t\t\teventStatus = ifnull(event.get("Event_Status"),"").toString();
@@ -93,7 +99,7 @@ void scheduled.pipeline_hygiene_digest()
 \t\t\t}
 \t\t\tif(!hasOpenActivity)
 \t\t\t{
-\t\t\t\tcalls = zoho.crm.v8.getRelatedRecords("Calls","Deals",dealId,1,200,Map());
+\t\t\t\tcalls = zoho.crm.v8.getRelatedRecords("Calls","Deals",dealId,callQuery,1,200);
 \t\t\t\tfor each call in calls
 \t\t\t\t{
 \t\t\t\t\tcallStatus = ifnull(call.get("Call_Status"),"").toString();

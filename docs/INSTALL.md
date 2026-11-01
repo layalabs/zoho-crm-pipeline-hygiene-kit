@@ -20,14 +20,14 @@ Open [`../dist/pipeline_hygiene.deluge`](../dist/pipeline_hygiene.deluge). Revie
 
 ```deluge
 staleDays = 14;
-maxDeals = 200;
+maxDeals = 25;
 createFollowUpTasks = false;
 managerEmail = zoho.adminuserid;
 closedStages = {"Closed Won","Closed Lost","Closed Lost to Competition"};
 ```
 
 1. Set `staleDays` to your sales review limit.
-2. Keep `maxDeals` at 200 or less for the first test.
+2. Keep `maxDeals` at 25 or less for the first test.
 3. Keep `createFollowUpTasks` set to `false`.
 4. Set `managerEmail` to the fallback recipient.
 5. Make `closedStages` match your pipeline stages.
@@ -43,6 +43,8 @@ closedStages = {"Closed Won","Closed Lost","Closed Lost to Competition"};
 7. Schedule one daily run after the controlled test passes.
 
 Zoho can change menu labels between editions. Use Zoho's function documentation if the path differs in your account.
+
+Each deal can cause up to three related-record requests. Check your Zoho external-call limit before you increase `maxDeals`.
 
 ## Compare the results
 

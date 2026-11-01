@@ -8,13 +8,16 @@ test("generateDeluge uses safe first-release defaults", () => {
   const source = generateDeluge();
 
   assert.match(source, /createFollowUpTasks = false;/);
-  assert.match(source, /maxDeals = 200;/);
+  assert.match(source, /maxDeals = 25;/);
   assert.match(source, /staleDays = 14;/);
   assert.match(source, /queryMap\.put\("fields","id,Deal_Name,Owner,Stage,Closing_Date,Last_Activity_Time,Next_Step,Amount"\);/);
-  assert.match(source, /zoho\.crm\.v8\.getRecords\("Deals",1,maxDeals,queryMap\)/);
-  assert.match(source, /zoho\.crm\.v8\.getRelatedRecords\("Tasks","Deals",dealId,1,200,Map\(\)\)/);
-  assert.match(source, /zoho\.crm\.v8\.getRelatedRecords\("Events","Deals",dealId,1,200,Map\(\)\)/);
-  assert.match(source, /zoho\.crm\.v8\.getRelatedRecords\("Calls","Deals",dealId,1,200,Map\(\)\)/);
+  assert.match(source, /zoho\.crm\.v8\.getRecords\("Deals",queryMap,1,maxDeals\)/);
+  assert.match(source, /taskQuery\.put\("fields","id,Status"\);/);
+  assert.match(source, /eventQuery\.put\("fields","id,Event_Status"\);/);
+  assert.match(source, /callQuery\.put\("fields","id,Call_Status"\);/);
+  assert.match(source, /zoho\.crm\.v8\.getRelatedRecords\("Tasks","Deals",dealId,taskQuery,1,200\)/);
+  assert.match(source, /zoho\.crm\.v8\.getRelatedRecords\("Events","Deals",dealId,eventQuery,1,200\)/);
+  assert.match(source, /zoho\.crm\.v8\.getRelatedRecords\("Calls","Deals",dealId,callQuery,1,200\)/);
 });
 
 test("generateDeluge rejects a record limit above the tested maximum", () => {
